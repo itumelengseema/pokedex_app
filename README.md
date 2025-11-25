@@ -113,20 +113,11 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
   <img src="assests/screenshots/home_screen.png" alt="Home Screen" width="250"/>
   <img src="assests/screenshots/search_feature.png" alt="Search Feature" width="250"/>
   <img src="assests/screenshots/profile_screen.png" alt="Profile_Screen" width="250"/>
-</p>
-
-<p align="center">
   <img src="assests/screenshots/pokemon_detail.png" alt="Pokemon Detail" width="250"/>
 </p>
 
-<!-- > **Note:** Add your app screenshots to the `assests/screenshots/` folder with
-> the names:
->
-> - `home_screen.png` - Main home screen with logo and search bar
-> - `search_feature.png` - Search functionality in action
-> - `pokemon_list.png` - Pokemon list/grid view
-> - `pokemon_detail.png` - Individual Pokemon details (if implemented)
-> - `loading_state.png` - Loading state of the app -->
+
+
 
 ## Key Components 🔑
 
