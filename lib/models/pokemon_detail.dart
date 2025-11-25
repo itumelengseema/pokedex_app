@@ -6,6 +6,7 @@ class PokemonDetail {
   final List<PokemonType> types;
   final List<PokemonAbility> abilities;
   final List<PokemonStat> stats;
+  final String description;
   final String imageUrl;
   final String? speciesUrl;
 
@@ -18,7 +19,7 @@ class PokemonDetail {
     required this.abilities,
     required this.stats,
     required this.imageUrl,
-    this.speciesUrl,
+    this.speciesUrl, required this.description,
   });
 
   factory PokemonDetail.fromJson(Map<String, dynamic> json) {
@@ -41,7 +42,7 @@ class PokemonDetail {
               as String? ??
           json['sprites']?['front_default'] as String? ??
           '',
-      speciesUrl: json['species']?['url'] as String?,
+      speciesUrl: json['species']?['url'] as String?, description: json['description'] as String,
     );
   }
 }

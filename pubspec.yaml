@@ -7,10 +7,13 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
+  firebase_auth: ^6.1.2
+  firebase_core: ^4.2.1
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.7
   http: ^1.6.0
+
 
 dev_dependencies:
   flutter_test:
