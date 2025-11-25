@@ -12,7 +12,7 @@ class ApiServices {
   static final Map<String, EvolutionChain> _evolutionCache = {};
 
   Future<List<Pokemon>> fetchPokemon(int offset, int limit) async {
-    limit = 30;
+    limit = 50;
     try {
       final response = await http.get(
         Uri.parse('$baseUrl?offset=$offset&limit=$limit'),
