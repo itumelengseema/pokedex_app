@@ -4,8 +4,10 @@ import 'package:pokedex_app/controllers/theme_controller.dart';
 import 'package:pokedex_app/views/screens/home_screen.dart';
 import 'package:pokedex_app/views/screens/favorites_screen.dart';
 import 'package:pokedex_app/views/screens/profile_screen.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
+void main( ) {
+
   runApp(const MainApp());
 }
 

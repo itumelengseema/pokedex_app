@@ -59,10 +59,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.favorite, color: Colors.red, size: 40),
+                      Image.network(
+                        'https://cdn.brandfetch.io/idyp519aAf/w/1024/h/1022/theme/dark/symbol.png?c=1bxid64Mup7aczewSAYMX&t=1721651819488',
+                        height: 80,
+                        width: 80,
+                      ),
                       SizedBox(width: 16),
                       Text(
-                        'Favorites',
+                        'Pokémon',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
