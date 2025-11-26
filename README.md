@@ -147,14 +147,17 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 
 ## App Screenshots 📸
 
-<p align="center">
-  <img src="assests/screenshots/splash_screen.png" alt="Loading State" width="250"/>
-  <img src="assests/screenshots/home_screen.png" alt="Home Screen" width="250"/>
-  <img src="assests/screenshots/search_feature.png" alt="Search Feature" width="250"/>
-  <img src="assests/screenshots/profile_screen.png" alt="Profile_Screen" width="250"/>
-  <img src="assests/screenshots/pokemon_detail.png" alt="Pokemon Detail" width="250"/>
-</p>
+<p style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
 
+  <img src="assets/screenshots/splash_screen.png" alt="Loading State" width="200" style="border-radius: 6px; padding: 4px;" />
+
+  <img src="assets/screenshots/home_screen.png" alt="Home Screen" width="200" style="border-radius: 6px; padding: 4px;" />
+
+  <img src="assets/screenshots/profile_screen.png" alt="Profile Screen" width="200" style="border-radius: 6px; padding: 4px;" />
+
+  <img src="assets/screenshots/pokemon_detail.png" alt="Pokemon Detail" width="200" style="border-radius: 6px; padding: 4px;" />
+
+</p>
 ## Key Components 🔑
 
 ### Authentication System
