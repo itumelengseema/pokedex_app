@@ -1,5 +1,5 @@
 name: pokedex_app
-description: "A new Flutter project."
+description: 'A new Flutter project.'
 publish_to: 'none'
 version: 0.1.0
 
@@ -7,9 +7,12 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
+  firebase_auth: ^6.1.2
+  firebase_core: ^4.2.1
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.7
+  google_sign_in: ^6.2.2
   http: ^1.6.0
 
 dev_dependencies:
