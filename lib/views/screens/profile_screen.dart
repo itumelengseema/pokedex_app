@@ -239,30 +239,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(height: 12),
 
-                      // Edit Profile
-                      _buildSettingItem(
-                        icon: Icons.edit_outlined,
-                        iconColor: Colors.green[600],
-                        title: 'Edit Profile',
-                        subtitle: 'Update your information',
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 16,
-                          color: subtextColor,
-                        ),
-                        onTap: () {
-                          final messenger = ScaffoldMessenger.of(context);
-                          messenger.showSnackBar(
-                            SnackBar(
-                              content: Text('Edit profile - Coming soon!'),
-                              backgroundColor: Colors.black87,
-                            ),
-                          );
-                        },
-                        isDark: isDark,
-                        textColor: textColor,
-                        subtextColor: subtextColor,
-                      ),
+                      // // Edit Profile
+                      // _buildSettingItem(
+                      //   icon: Icons.edit_outlined,
+                      //   iconColor: Colors.green[600],
+                      //   title: 'Edit Profile',
+                      //   subtitle: 'Update your information',
+                      //   trailing: Icon(
+                      //     Icons.arrow_forward_ios,
+                      //     size: 16,
+                      //     color: subtextColor,
+                      //   ),
+                      //   onTap: () {
+                      //     final messenger = ScaffoldMessenger.of(context);
+                      //     messenger.showSnackBar(
+                      //       SnackBar(
+                      //         content: Text('Edit profile - Coming soon!'),
+                      //         backgroundColor: Colors.black87,
+                      //       ),
+                      //     );
+                      //   },
+                      //   isDark: isDark,
+                      //   textColor: textColor,
+                      //   subtextColor: subtextColor,
+                      // ),
                     ],
                   ),
                 ),
