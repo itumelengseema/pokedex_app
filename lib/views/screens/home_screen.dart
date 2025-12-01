@@ -79,7 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      final newPokemon = await controller.fetchPokemon(_offset, _limit);
+      final newPokemon = await controller.fetchPokemon(
+        pokemonList.length,
+        _limit,
+      );
       setState(() {
         pokemonList.addAll(newPokemon);
         filteredPokemonList = pokemonList;

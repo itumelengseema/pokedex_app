@@ -81,6 +81,14 @@ lib/
     └── widgets/
         ├── search_bar.dart       # Custom search bar widget
         └── pokemon_card.dart     # Reusable Pokemon card with favorite button
+
+test/
+├── controllers/
+│   └── pokemon_controller_test.dart # Unit tests for Pokemon controller
+└── views/
+    └── widgets/
+        ├── pokemon_card_test.dart   # Widget tests for Pokemon card
+        └── search_bar_test.dart     # Widget tests for search bar
 ```
 
 ## Technologies Used 🛠️
@@ -148,10 +156,10 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 ## App Screenshots 📸
 
 <p align="center">
-  <img src="assets/screenshots/splash_screen.png" width="200" />
-  <img src="assets/screenshots/home_screen.png" width="200" />
-  <img src="assets/screenshots/profile_screen.png" width="200" />
-  <img src="assets/screenshots/pokemon_detail.png" width="200" />
+  <img src="assests/screenshots/splash_screen.png" width="200" />
+  <img src="assests/screenshots/home_screen.png" width="200" />
+  <img src="assests/screenshots/profile_screen.png" width="200" />
+  <img src="assests/screenshots/pokemon_detail.png" width="200" />
 </p>
 
 
@@ -245,12 +253,50 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^1.6.0 # For API requests
-  firebase_core: ^4.2.1 # Firebase platform integration
-  firebase_auth: ^6.1.2 # User authentication
-  google_sign_in: ^6.2.2 # Google OAuth authentication
-  cupertino_icons: ^1.0.8 # iOS icons
+  http: ^1.6.0                    # For API requests
+  firebase_core: ^4.2.1           # Firebase platform integration
+  firebase_auth: ^6.1.2           # User authentication
+  google_sign_in: ^6.2.2          # Google OAuth authentication
+  flutter_native_splash: ^2.4.7   # Native splash screen
+  mockito: ^5.6.1                 # Mocking for tests
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0           # Flutter linting rules
+  build_runner: ^2.10.4           # Code generation for mocks
 ```
+
+## Testing 🧪
+
+The app includes comprehensive unit and widget tests to ensure code quality and reliability.
+
+### Running Tests
+
+```bash
+# Run all tests
+flutter test
+
+# Run tests with coverage
+flutter test --coverage
+
+# Run specific test file
+flutter test test/controllers/pokemon_controller_test.dart
+```
+
+### Test Structure
+
+- **Unit Tests**: Test business logic in controllers
+  - `pokemon_controller_test.dart` - Tests Pokemon fetching logic
+- **Widget Tests**: Test UI components
+  - `pokemon_card_test.dart` - Tests Pokemon card widget behavior
+  - `search_bar_test.dart` - Tests search functionality
+
+### Test Coverage
+
+- Controllers: Unit tested with mocked HTTP clients
+- Widgets: Widget tested for user interactions and display
+- Mocking: Uses Mockito for dependency injection
 
 ## Development 💻
 
@@ -262,6 +308,7 @@ dependencies:
 - **Widget Composition**: Reusable, modular widgets
 - **Service Layer**: Abstracted API and authentication calls
 - **Auth Wrapper**: Stream-based authentication state management
+- **Test-Driven Development**: Comprehensive unit and widget tests
 
 ### Adding New Features
 
@@ -269,6 +316,8 @@ dependencies:
 2. Add business logic to `lib/controllers/`
 3. Update models in `lib/models/` if needed
 4. Integrate API calls through `lib/services/api_services.dart`
+5. Write unit/widget tests in `test/` directory
+6. Run tests to ensure functionality
 
 ### Performance Optimizations
 
@@ -276,6 +325,7 @@ dependencies:
 - Infinite scroll loads data on-demand
 - Image caching for faster subsequent loads
 - Efficient list rendering with GridView.builder
+- Optimized widget rebuilds with ChangeNotifier
 
 ### Code Style
 
@@ -284,6 +334,7 @@ dependencies:
 - Add comments for complex logic
 - Keep widgets small and reusable
 - Implement proper error handling
+- Write tests for new features
 
 ## Future Enhancements 🚀
 
@@ -296,16 +347,20 @@ dependencies:
 - [x] 👤 **User Profiles** - Display user information from Firebase
 - [x] 🌓 **Light/Dark Mode** - Theme switching with persistent preferences
 - [x] 📊 **Pokemon Details** - Stats, abilities, types, and evolution chains
-- [ ] Cloud sync for favorites across devices
-- [ ] Filter by type, generation, region
-- [ ] Offline caching with local database
-- [ ] Pokémon comparison feature
-- [ ] Advanced search filters (by stats, type, etc.)
-- [ ] Share favorite Pokémon
-- [ ] Animated Pokémon sprites
-- [ ] Sound effects and haptic feedback
-- [ ] Team builder feature
-- [ ] Battle simulator
+- [x] 🧪 **Testing** - Unit and widget tests with Mockito
+- [ ] 📈 **Test Coverage** - Increase coverage to 80%+
+- [ ] 🔄 Cloud sync for favorites across devices
+- [ ] 🎯 Filter by type, generation, region
+- [ ] 💾 Offline caching with local database
+- [ ] ⚖️ Pokémon comparison feature
+- [ ] 🔍 Advanced search filters (by stats, type, etc.)
+- [ ] 📤 Share favorite Pokémon
+- [ ] 🎬 Animated Pokémon sprites
+- [ ] 🔊 Sound effects and haptic feedback
+- [ ] 👥 Team builder feature
+- [ ] ⚔️ Battle simulator
+- [ ] 🌍 Multi-language support
+- [ ] 📊 Statistics and analytics dashboard
 
 ## Contributing 🤝
 
