@@ -58,6 +58,12 @@ class ApiServices {
     }
   }
 
+  // Future<List<Pokemon>> searchPokemon(String query ) async{
+  //   try{
+  //     final response = await http.get(Uri.parse(  $baseUrl $query/));
+  //   }
+  // }
+
   Future<PokemonDetail> fetchPokemonDetail(String url) async {
     // Check cache first
     if (_detailCache.containsKey(url)) {
