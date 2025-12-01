@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:pokedex_app/controllers/favorites_controller.dart';
 import 'package:pokedex_app/controllers/theme_controller.dart';
 import 'package:pokedex_app/firebase_options.dart';
@@ -8,9 +9,13 @@ import 'package:pokedex_app/views/screens/favorites_screen.dart';
 import 'package:pokedex_app/views/screens/profile_screen.dart';
 import 'package:pokedex_app/views/screens/auth_wrapper.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // FlutterNativeSplash.preserve(
+  //   widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
+  // );
   runApp(MainApp());
 }
 
@@ -41,6 +46,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Pokedex',
       debugShowCheckedModeBanner: false,
       themeMode: _themeController.themeMode,
       theme: ThemeData.light().copyWith(
@@ -122,7 +128,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
         },
         selectedIndex: currentPage,
         destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home',),
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.favorite), label: 'Favorites'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
