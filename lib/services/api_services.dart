@@ -6,6 +6,7 @@ import 'package:pokedex_app/models/pokemon_detail.dart';
 
 class ApiServices {
   static const String baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  static const Duration apiTimeout = Duration(seconds: 15);
 
   // Cache for Pokemon details
   static final Map<String, PokemonDetail> _detailCache = {};
@@ -16,7 +17,7 @@ class ApiServices {
     try {
       final response = await http.get(
         Uri.parse('$baseUrl?offset=$offset&limit=$limit'),
-      );
+      ).timeout(apiTimeout);
 
       if (response.statusCode != 200) throw Exception('Failed to load Pokemon');
 
@@ -26,7 +27,7 @@ class ApiServices {
       final futures = results.map((item) async {
         final url = item['url'] as String;
         try {
-          final pokemonResponse = await http.get(Uri.parse(url));
+          final pokemonResponse = await http.get(Uri.parse(url)).timeout(apiTimeout);
           if (pokemonResponse.statusCode == 200) {
             final detailData =
                 jsonDecode(pokemonResponse.body) as Map<String, dynamic>;
@@ -71,7 +72,7 @@ class ApiServices {
     }
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url)).timeout(apiTimeout);
 
       if (response.statusCode != 200) {
         throw Exception('Failed to load Pokemon details');
@@ -112,7 +113,7 @@ class ApiServices {
 
     try {
       // Get species data
-      final speciesResponse = await http.get(Uri.parse(speciesUrl));
+      final speciesResponse = await http.get(Uri.parse(speciesUrl)).timeout(apiTimeout);
       if (speciesResponse.statusCode != 200) {
         throw Exception('Failed to load species data');
       }
@@ -122,7 +123,7 @@ class ApiServices {
       final evolutionChainUrl = speciesData['evolution_chain']['url'] as String;
 
       // Get evolution chain
-      final evolutionResponse = await http.get(Uri.parse(evolutionChainUrl));
+      final evolutionResponse = await http.get(Uri.parse(evolutionChainUrl)).timeout(apiTimeout);
       if (evolutionResponse.statusCode != 200) {
         throw Exception('Failed to load evolution chain');
       }
