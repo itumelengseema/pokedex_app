@@ -78,4 +78,12 @@ class PokemonRepository {
   void clearCache() {
     _cacheService.clearCache();
   }
+
+  Future<List<Pokemon>> searchPokemon(String query, {int limit = 20}) async {
+    try {
+      return await _apiService.searchPokemon(query, limit: limit);
+    } catch (e) {
+      throw Exception('Failed to search Pokemon: $e');
+    }
+  }
 }

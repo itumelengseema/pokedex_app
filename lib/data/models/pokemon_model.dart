@@ -2,8 +2,14 @@ class Pokemon {
   final String name;
   final String url;
   final String? imageUrl;
+  final List<String>? types;
 
-  Pokemon({required this.name, required this.url, this.imageUrl});
+  Pokemon({
+    required this.name,
+    required this.url,
+    this.imageUrl,
+    this.types,
+  });
 
   String get id => url.split('/').where((e) => e.isNotEmpty).last;
 
@@ -12,6 +18,9 @@ class Pokemon {
       name: json['name'] as String,
       url: json['url'] as String,
       imageUrl: json['imageUrl'] as String?,
+      types: json['types'] != null
+          ? List<String>.from(json['types'] as List)
+          : null,
     );
   }
 
@@ -20,6 +29,7 @@ class Pokemon {
       'name': name,
       'url': url,
       'imageUrl': imageUrl,
+      'types': types,
     };
   }
 
