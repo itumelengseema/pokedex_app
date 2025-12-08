@@ -96,10 +96,32 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   // Search Pokemon
-  void searchPokemon(String query) {
+  Future<void> searchPokemon(String query) async {
     _searchQuery = query.toLowerCase();
-    _applyFilters();
-    notifyListeners();
+
+    if (_searchQuery.isEmpty) {
+      _applyFilters();
+      notifyListeners();
+      return;
+    }
+
+    try {
+      final searchResults = await _pokemonRepository.searchPokemon(_searchQuery);
+
+      if (searchResults.isNotEmpty) {
+        for (var pokemon in searchResults) {
+          if (!_allPokemon.any((p) => p.url == pokemon.url)) {
+            _allPokemon.add(pokemon);
+          }
+        }
+      }
+
+      _applyFilters();
+      notifyListeners();
+    } catch (e) {
+      _applyFilters();
+      notifyListeners();
+    }
   }
 
   // Filter by type
