@@ -137,7 +137,7 @@ void main() {
       await viewModel.loadMorePokemon();
 
       verify(mockRepository.fetchPokemonList(0, 50)).called(1);
-      verifyNever(mockRepository.fetchPokemonList(0, 50));
+      verifyNever(mockRepository.fetchPokemonList(1, 50));
     });
   });
 
