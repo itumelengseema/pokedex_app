@@ -31,24 +31,29 @@ management, light/dark mode, and a clean Material Design interface.
   email/password and Google Sign-In
 - 👤 **User Profiles** - Personalized profiles with Firebase user data
 - 🔍 **Search Functionality** - Search for Pokémon by name or ID with real-time
-  filtering
-- 📱 **Responsive UI** - Clean and modern Material Design interface with grid
-  layout
+  filtering and prefetching
+- 📱 **Responsive UI** - Adaptive layouts for mobile, tablet, and desktop with
+  Material Design
 - 🌓 **Light/Dark Mode** - Beautiful theme switching with persistent preferences
 - 🌐 **API Integration** - Fetches real-time Pokémon data from PokeAPI with
   parallel requests
 - 🖼️ **High-Quality Images** - Displays official Pokémon artwork (PNG format)
-- 📋 **Infinite Scroll** - Automatically loads more Pokémon as you scroll (20 at
+- 📋 **Infinite Scroll** - Automatically loads more Pokémon as you scroll (50 at
   a time)
-- ❤️ **Favorites System** - Add/remove Pokémon to favorites with persistent
-  state
+- ❤️ **Favorites System** - Add/remove Pokémon to favorites with Cloud Firestore
+  persistence
 - 🔎 **Favorites Search** - Search through your favorite Pokémon
 - 📊 **Detailed Pokemon Info** - View stats, abilities, types, and evolution
   chains
-- 🎯 **Optimized Performance** - Parallel API requests for faster loading
+- 🎯 **Optimized Performance** - Parallel API requests and in-memory caching for
+  faster loading
+- 💾 **Persistent Storage** - Cloud Firestore integration for cross-device
+  favorites sync
 - 🎨 **Beautiful Cards** - Pokémon cards with images, names, and formatted IDs
 - 🧭 **Bottom Navigation** - Easy navigation between Home, Favorites, and
   Profile screens
+- 📐 **Responsive Design** - Breakpoint-based responsive utilities for all screen
+  sizes
 
 ## Project Structure 📁
 
@@ -56,39 +61,60 @@ management, light/dark mode, and a clean Material Design interface.
 lib/
 ├── main.dart                      # App entry point with Firebase initialization
 ├── firebase_options.dart          # Firebase configuration
-├── models/
-│   ├── pokemon.dart              # Pokemon data model with equality methods
-│   ├── pokemon_detail.dart       # Detailed Pokemon information model
-│   └── user_profile.dart         # User profile model
-├── controllers/
-│   ├── pokemon_controller.dart   # Pokemon fetching logic
-│   ├── favorites_controller.dart # Favorites management with ChangeNotifier
-│   ├── theme_controller.dart     # Theme management with light/dark mode
-│   └── auth_controller.dart      # Authentication controller
-├── services/
-│   ├── api_services.dart         # API service with parallel requests
-│   └── auth_service.dart         # Firebase authentication service
-└── views/
-    ├── screens/
-    │   ├── auth_wrapper.dart     # Authentication state wrapper
-    │   ├── login_screen.dart     # Login with email/Google
-    │   ├── signup_screen.dart    # User registration
-    │   ├── forgot_password_screen.dart # Password reset
-    │   ├── home_screen.dart      # Main screen with infinite scroll
-    │   ├── favorites_screen.dart # Favorites management screen
-    │   ├── profile_screen.dart   # User profile with settings
-    │   └── details_screen.dart   # Pokemon detail view with stats/evolution
-    └── widgets/
-        ├── search_bar.dart       # Custom search bar widget
-        └── pokemon_card.dart     # Reusable Pokemon card with favorite button
-
-test/
-├── controllers/
-│   └── pokemon_controller_test.dart # Unit tests for Pokemon controller
-└── views/
-    └── widgets/
-        ├── pokemon_card_test.dart   # Widget tests for Pokemon card
-        └── search_bar_test.dart     # Widget tests for search bar
+├── core/
+│   └── theme/
+│       ├── app_theme.dart        # Theme management logic
+│       └── app_theme_data.dart   # Light/Dark theme data definitions
+├── data/
+│   ├── models/
+│   │   ├── pokemon_model.dart           # Pokemon data model
+│   │   ├── pokemon_detail_model.dart    # Detailed Pokemon information model
+│   │   └── user_profile_model.dart      # User profile model
+│   ├── repositories/
+│   │   ├── pokemon_repository.dart      # Pokemon data repository with caching
+│   │   ├── favorites_repository.dart    # Favorites repository
+│   │   └── auth_repository.dart         # Authentication repository
+│   └── services/
+│       ├── api/
+│       │   └── pokemon_api_service.dart # PokeAPI service with parallel requests
+│       ├── firebase/
+│       │   ├── auth_service.dart        # Firebase authentication service
+│       │   └── favorites_service.dart   # Cloud Firestore favorites service
+│       └── local/
+│           └── cache_service.dart       # In-memory caching service
+├── presentation/
+│   ├── viewmodels/
+│   │   ├── home_viewmodel.dart          # Home screen business logic
+│   │   ├── favorites_viewmodel.dart     # Favorites screen business logic
+│   │   ├── details_viewmodel.dart       # Details screen business logic
+│   │   ├── profile_viewmodel.dart       # Profile screen business logic
+│   │   ├── auth_viewmodel.dart          # Authentication business logic
+│   │   └── theme_viewmodel.dart         # Theme management business logic
+│   ├── screens/
+│   │   ├── auth_wrapper.dart            # Authentication state wrapper
+│   │   ├── login_screen.dart            # Login with email/Google
+│   │   ├── signup_screen.dart           # User registration
+│   │   ├── forgot_password_screen.dart  # Password reset
+│   │   ├── home_screen.dart             # Main screen with infinite scroll
+│   │   ├── favorites_screen.dart        # Favorites management screen
+│   │   ├── profile_screen.dart          # User profile with settings
+│   │   └── details_screen.dart          # Pokemon detail view with stats/evolution
+│   └── widgets/
+│       ├── search_bar.dart              # Custom search bar widget
+│       ├── pokemon_card.dart            # Reusable Pokemon card widget
+│       ├── favorite_button.dart         # Favorite toggle button widget
+│       └── responsive_builder.dart      # Responsive layout builder
+├── utils/
+│   ├── constants/
+│   │   ├── app_sizes.dart               # Size constants
+│   │   ├── app_spacing.dart             # Spacing constants
+│   │   └── app_text_styles.dart         # Text style constants
+│   └── responsive/
+│       ├── responsive_size.dart         # Responsive sizing utilities
+│       └── screen_breakpoints.dart      # Screen size breakpoints
+└── widgets/
+    └── responsive/
+        └── responsive_builder.dart      # Responsive widget builder
 ```
 
 ## Technologies Used 🛠️
@@ -97,7 +123,9 @@ test/
 - **Dart** - Programming language
 - **Firebase Auth** - User authentication and management
 - **Firebase Core** - Firebase platform integration
+- **Cloud Firestore** - Cloud database for favorites persistence
 - **Google Sign-In** - OAuth authentication with Google
+- **Provider** - State management solution
 - **HTTP Package** - For API requests
 - **PokeAPI** - RESTful Pokemon API
 
@@ -132,6 +160,8 @@ test/
    - Add an Android app to your Firebase project
    - Download `google-services.json` and place it in `android/app/`
    - Enable Email/Password and Google Sign-In in Authentication settings
+   - Enable Cloud Firestore in your Firebase project for favorites persistence
+   - Set up Firestore security rules to secure user data
    - For Google Sign-In, add your SHA-1 fingerprint (see
      [GOOGLE_SIGNIN_SETUP.md](GOOGLE_SIGNIN_SETUP.md))
 
@@ -158,6 +188,10 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 <p align="center">
   <img src="assests/screenshots/splash_screen.png" width="200" />
   <img src="assests/screenshots/home_screen.png" width="200" />
+  <img src="assests/screenshots/Search_feature.png" width="200" />
+</p>
+
+<p align="center">
   <img src="assests/screenshots/profile_screen.png" width="200" />
   <img src="assests/screenshots/pokemon_detail.png" width="200" />
 </p>
@@ -177,13 +211,14 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 ### Home Screen
 
 - Displays Pokémon logo and branding
-- Search bar for filtering Pokémon
-- 2-column grid view with infinite scroll
+- Search bar for filtering Pokémon with prefetching
+- Responsive grid view with infinite scroll
 - Favorite buttons on each card
-- Automatic pagination (loads 20 Pokémon at a time)
+- Automatic pagination (loads 50 Pokémon at a time)
 - Loading indicators for smooth UX
 - ScrollController for detecting scroll position
 - Light/dark mode support
+- Adaptive layouts for different screen sizes
 
 ### Profile Screen
 
@@ -206,12 +241,14 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 
 ### Favorites Screen
 
-- Displays all favorited Pokémon
+- Displays all favorited Pokémon from Cloud Firestore
 - Search functionality to filter favorites
 - Add/remove favorites with heart icon
+- Real-time sync across devices
 - Empty state with helpful messaging
 - Real-time updates when favorites change
 - Grid layout matching home screen
+- Persistent storage with Firestore
 
 ### Pokémon Card Widget
 
@@ -221,20 +258,33 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 - Capitalized Pokémon names
 - Heart icon for favorites (filled when favorited)
 - Smooth animations and interactions
+- Responsive sizing for different screen sizes
+
+### Responsive Design System
+
+- **ResponsiveSize**: Utility class for responsive layouts
+- **Screen Breakpoints**: Mobile, tablet, and desktop breakpoints
+- **Responsive Builder**: Widget for building responsive UIs
+- **Adaptive Grids**: Grid columns adjust based on screen size
+- **Responsive Padding**: Context-aware spacing
+- **Device Type Detection**: Mobile, tablet, desktop detection
+- **Orientation Support**: Portrait and landscape handling
 
 ### Theme Controller
 
 - Light/dark mode switching
 - Persistent theme preferences
-- ChangeNotifier for reactive updates
+- Provider-based state management
 - Dynamic color schemes throughout app
 
 ### Favorites Controller
 
-- ChangeNotifier for state management
+- Provider-based state management
+- Cloud Firestore integration for persistence
 - Add/remove/toggle favorites
 - Search favorites by name or ID
-- Persistent favorites list
+- Cross-device synchronization
+- Real-time updates with Firestore streams
 - Notifies listeners on changes
 
 ### API Services
@@ -246,6 +296,8 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 - Fetches high-quality PNG artwork
 - Detailed Pokémon information including evolution chains
 - Graceful degradation if images fail
+- In-memory caching for frequently accessed data
+- Repository pattern for data abstraction
 
 ## Dependencies 📦
 
@@ -256,7 +308,9 @@ dependencies:
   http: ^1.6.0                    # For API requests
   firebase_core: ^4.2.1           # Firebase platform integration
   firebase_auth: ^6.1.2           # User authentication
+  cloud_firestore: ^6.1.0         # Cloud database for favorites
   google_sign_in: ^6.2.2          # Google OAuth authentication
+  provider: ^6.1.2                # State management
   flutter_native_splash: ^2.4.7   # Native splash screen
   mockito: ^5.6.1                 # Mocking for tests
 
@@ -269,7 +323,14 @@ dev_dependencies:
 
 ## Testing 🧪
 
-The app includes comprehensive unit and widget tests to ensure code quality and reliability.
+The app is designed with testability in mind, using dependency injection and repository patterns to facilitate unit and widget testing.
+
+### Test Architecture
+
+- **Repository Pattern**: Abstracts data sources for easy mocking
+- **Dependency Injection**: Services can be injected for testing
+- **Provider State Management**: Testable state management solution
+- **Mockito**: Support for mocking HTTP clients and services
 
 ### Running Tests
 
@@ -281,51 +342,53 @@ flutter test
 flutter test --coverage
 
 # Run specific test file
-flutter test test/controllers/pokemon_controller_test.dart
+flutter test test/[test_file_name]_test.dart
 ```
 
-### Test Structure
+### Testable Components
 
-- **Unit Tests**: Test business logic in controllers
-  - `pokemon_controller_test.dart` - Tests Pokemon fetching logic
-- **Widget Tests**: Test UI components
-  - `pokemon_card_test.dart` - Tests Pokemon card widget behavior
-  - `search_bar_test.dart` - Tests search functionality
-
-### Test Coverage
-
-- Controllers: Unit tested with mocked HTTP clients
-- Widgets: Widget tested for user interactions and display
-- Mocking: Uses Mockito for dependency injection
+- **ViewModels**: Business logic with injected repositories
+- **Repositories**: Data layer with injected services
+- **Widgets**: UI components with mock data
+- **Services**: API and Firebase services with mocked responses
 
 ## Development 💻
 
 ### Architecture Pattern
 
-- **MVC Pattern**: Separation of Models, Views, and Controllers
-- **State Management**: ChangeNotifier for favorites and theme
-- **Firebase Integration**: Authentication and user management
+- **MVVM Pattern**: Separation of Views, ViewModels, and Models with
+  data binding
+- **Repository Pattern**: Abstract data layer for flexible data sources
+- **State Management**: Provider for reactive state management
+- **Firebase Integration**: Authentication and Cloud Firestore for data
+  persistence
+- **Service Layer**: Abstracted API, authentication, and cache services
 - **Widget Composition**: Reusable, modular widgets
-- **Service Layer**: Abstracted API and authentication calls
 - **Auth Wrapper**: Stream-based authentication state management
-- **Test-Driven Development**: Comprehensive unit and widget tests
+- **Responsive Design**: Breakpoint-based responsive utilities
+- **Dependency Injection**: Constructor injection for testability
 
 ### Adding New Features
 
-1. Create new widgets in `lib/views/widgets/`
-2. Add business logic to `lib/controllers/`
-3. Update models in `lib/models/` if needed
-4. Integrate API calls through `lib/services/api_services.dart`
-5. Write unit/widget tests in `test/` directory
-6. Run tests to ensure functionality
+1. Create new widgets in `lib/presentation/widgets/`
+2. Add business logic to `lib/presentation/viewmodels/`
+3. Update models in `lib/data/models/` if needed
+4. Create repositories in `lib/data/repositories/` for data access
+5. Integrate API calls through `lib/data/services/`
+6. Use Provider for state management
+7. Write unit/widget tests for new functionality
+8. Ensure responsive design with responsive utilities
 
 ### Performance Optimizations
 
 - Parallel API requests reduce loading time by ~10x
-- Infinite scroll loads data on-demand
+- In-memory caching with CacheService reduces redundant API calls
+- Infinite scroll loads data on-demand (50 items per batch)
 - Image caching for faster subsequent loads
 - Efficient list rendering with GridView.builder
-- Optimized widget rebuilds with ChangeNotifier
+- Optimized widget rebuilds with Provider
+- Prefetching for smoother user experience
+- Repository pattern minimizes direct API dependencies
 
 
 ## Acknowledgments 🙏
