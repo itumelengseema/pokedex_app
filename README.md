@@ -22,8 +22,9 @@
 
 A beautiful and modern Flutter application that allows users to browse, search,
 and favorite Pokémon using the [PokeAPI](https://pokeapi.co/). Features Firebase
-authentication with Google Sign-In, infinite scroll pagination, favorites
-management, light/dark mode, and a clean Material Design interface.
+authentication with Google Sign-In, Cloud Firestore for persistent favorites,
+infinite scroll pagination, responsive design, light/dark mode, and a clean
+Material Design interface.
 
 ## Features ✨
 
@@ -143,8 +144,8 @@ lib/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/itumelengseema/pokedex_app.git
-   cd pokedex_app
+   git clone https://github.com/itumelengseema/PokeHub.git
+   cd PokeHub
    ```
 
 2. **Install dependencies**
@@ -161,7 +162,17 @@ lib/
    - Download `google-services.json` and place it in `android/app/`
    - Enable Email/Password and Google Sign-In in Authentication settings
    - Enable Cloud Firestore in your Firebase project for favorites persistence
-   - Set up Firestore security rules to secure user data
+   - Set up Firestore security rules (example below):
+     ```
+     rules_version = '2';
+     service cloud.firestore {
+       match /databases/{database}/documents {
+         match /users/{userId}/favorites/{favoriteId} {
+           allow read, write: if request.auth != null && request.auth.uid == userId;
+         }
+       }
+     }
+     ```
    - For Google Sign-In, add your SHA-1 fingerprint (see
      [GOOGLE_SIGNIN_SETUP.md](GOOGLE_SIGNIN_SETUP.md))
 
