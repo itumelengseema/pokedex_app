@@ -58,65 +58,31 @@ Material Design interface.
 
 ## Project Structure 📁
 
+The project follows a clean **MVVM architecture** with clear separation of concerns:
+
 ```
 lib/
 ├── main.dart                      # App entry point with Firebase initialization
 ├── firebase_options.dart          # Firebase configuration
-├── core/
-│   └── theme/
-│       ├── app_theme.dart        # Theme management logic
-│       └── app_theme_data.dart   # Light/Dark theme data definitions
-├── data/
-│   ├── models/
-│   │   ├── pokemon_model.dart           # Pokemon data model
-│   │   ├── pokemon_detail_model.dart    # Detailed Pokemon information model
-│   │   └── user_profile_model.dart      # User profile model
-│   ├── repositories/
-│   │   ├── pokemon_repository.dart      # Pokemon data repository with caching
-│   │   ├── favorites_repository.dart    # Favorites repository
-│   │   └── auth_repository.dart         # Authentication repository
-│   └── services/
-│       ├── api/
-│       │   └── pokemon_api_service.dart # PokeAPI service with parallel requests
-│       ├── firebase/
-│       │   ├── auth_service.dart        # Firebase authentication service
-│       │   └── favorites_service.dart   # Cloud Firestore favorites service
-│       └── local/
-│           └── cache_service.dart       # In-memory caching service
-├── presentation/
-│   ├── viewmodels/
-│   │   ├── home_viewmodel.dart          # Home screen business logic
-│   │   ├── favorites_viewmodel.dart     # Favorites screen business logic
-│   │   ├── details_viewmodel.dart       # Details screen business logic
-│   │   ├── profile_viewmodel.dart       # Profile screen business logic
-│   │   ├── auth_viewmodel.dart          # Authentication business logic
-│   │   └── theme_viewmodel.dart         # Theme management business logic
-│   ├── screens/
-│   │   ├── auth_wrapper.dart            # Authentication state wrapper
-│   │   ├── login_screen.dart            # Login with email/Google
-│   │   ├── signup_screen.dart           # User registration
-│   │   ├── forgot_password_screen.dart  # Password reset
-│   │   ├── home_screen.dart             # Main screen with infinite scroll
-│   │   ├── favorites_screen.dart        # Favorites management screen
-│   │   ├── profile_screen.dart          # User profile with settings
-│   │   └── details_screen.dart          # Pokemon detail view with stats/evolution
-│   └── widgets/
-│       ├── search_bar.dart              # Custom search bar widget
-│       ├── pokemon_card.dart            # Reusable Pokemon card widget
-│       ├── favorite_button.dart         # Favorite toggle button widget
-│       └── responsive_builder.dart      # Responsive layout builder
-├── utils/
-│   ├── constants/
-│   │   ├── app_sizes.dart               # Size constants
-│   │   ├── app_spacing.dart             # Spacing constants
-│   │   └── app_text_styles.dart         # Text style constants
-│   └── responsive/
-│       ├── responsive_size.dart         # Responsive sizing utilities
-│       └── screen_breakpoints.dart      # Screen size breakpoints
-└── widgets/
-    └── responsive/
-        └── responsive_builder.dart      # Responsive widget builder
+├── core/                          # Core application infrastructure
+│   └── theme/                     # Theme management and styling
+├── data/                          # Data layer
+│   ├── models/                    # Data models (Pokemon, User, etc.)
+│   ├── repositories/              # Repository pattern implementations
+│   └── services/                  # External service integrations
+│       ├── api/                   # PokeAPI integration
+│       ├── firebase/              # Firebase services (Auth, Firestore)
+│       └── local/                 # Local services (Cache, Storage)
+├── presentation/                  # Presentation layer
+│   ├── viewmodels/                # Business logic and state management
+│   ├── screens/                   # Screen-level UI components
+│   └── widgets/                   # Reusable UI widgets
+└── utils/                         # Utility classes and helpers
+    ├── constants/                 # App-wide constants
+    └── responsive/                # Responsive design utilities
 ```
+
+> **Note**: This is a high-level overview. For the complete file structure, explore the `lib/` directory.
 
 ## Technologies Used 🛠️
 
@@ -273,64 +239,36 @@ The app uses the [PokeAPI](https://pokeapi.co/) to fetch Pokémon data:
 
 ### Responsive Design System
 
-- **ResponsiveSize**: Utility class for responsive layouts
-- **Screen Breakpoints**: Mobile, tablet, and desktop breakpoints
-- **Responsive Builder**: Widget for building responsive UIs
-- **Adaptive Grids**: Grid columns adjust based on screen size
-- **Responsive Padding**: Context-aware spacing
-- **Device Type Detection**: Mobile, tablet, desktop detection
-- **Orientation Support**: Portrait and landscape handling
+- Breakpoint-based layouts for mobile, tablet, and desktop
+- Adaptive grids that adjust to screen size
+- Responsive sizing utilities for consistent spacing
+- Device type detection and orientation support
 
-### Theme Controller
+### State Management
 
-- Light/dark mode switching
+- **Provider** for reactive state management
+- **ViewModels** handle business logic and state
+- Real-time updates with Firestore streams for favorites
 - Persistent theme preferences
-- Provider-based state management
-- Dynamic color schemes throughout app
 
-### Favorites Controller
+### Data Layer
 
-- Provider-based state management
-- Cloud Firestore integration for persistence
-- Add/remove/toggle favorites
-- Search favorites by name or ID
-- Cross-device synchronization
-- Real-time updates with Firestore streams
-- Notifies listeners on changes
-
-### API Services
-
-- Parallel HTTP requests for performance
-- Handles pagination with offset/limit
-- Parses JSON responses efficiently
-- Error handling with fallbacks
-- Fetches high-quality PNG artwork
-- Detailed Pokémon information including evolution chains
-- Graceful degradation if images fail
-- In-memory caching for frequently accessed data
-- Repository pattern for data abstraction
+- **Repository Pattern** abstracts data sources
+- **API Services** handle PokeAPI integration with caching
+- **Firebase Services** manage authentication and Firestore
+- In-memory caching for improved performance
 
 ## Dependencies 📦
 
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  http: ^1.6.0                    # For API requests
-  firebase_core: ^4.2.1           # Firebase platform integration
-  firebase_auth: ^6.1.2           # User authentication
-  cloud_firestore: ^6.1.0         # Cloud database for favorites
-  google_sign_in: ^6.2.2          # Google OAuth authentication
-  provider: ^6.1.2                # State management
-  flutter_native_splash: ^2.4.7   # Native splash screen
-  mockito: ^5.6.1                 # Mocking for tests
+This project uses Flutter and Firebase for cross-platform development with cloud integration. Key dependencies include:
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^6.0.0           # Flutter linting rules
-  build_runner: ^2.10.4           # Code generation for mocks
-```
+- **Flutter & Dart** - Cross-platform framework and programming language
+- **Firebase** - Authentication (`firebase_auth`, `firebase_core`) and database (`cloud_firestore`)
+- **Provider** - State management solution
+- **HTTP** - API communication with PokeAPI
+- **Google Sign-In** - OAuth authentication
+
+> **For complete dependency list with versions**, see [`pubspec.yaml`](pubspec.yaml)
 
 ## Testing 🧪
 
@@ -381,14 +319,18 @@ flutter test test/[test_file_name]_test.dart
 
 ### Adding New Features
 
-1. Create new widgets in `lib/presentation/widgets/`
-2. Add business logic to `lib/presentation/viewmodels/`
-3. Update models in `lib/data/models/` if needed
-4. Create repositories in `lib/data/repositories/` for data access
-5. Integrate API calls through `lib/data/services/`
-6. Use Provider for state management
-7. Write unit/widget tests for new functionality
-8. Ensure responsive design with responsive utilities
+The project follows a layered architecture. To add new features:
+
+1. **Models** - Define data structures in `lib/data/models/`
+2. **Services** - Implement external integrations in `lib/data/services/`
+3. **Repositories** - Create data access layer in `lib/data/repositories/`
+4. **ViewModels** - Add business logic in `lib/presentation/viewmodels/`
+5. **UI** - Build screens and widgets in `lib/presentation/`
+6. **State Management** - Use Provider for reactive updates
+7. **Testing** - Write unit/widget tests for new functionality
+8. **Responsive Design** - Utilize responsive utilities for all screen sizes
+
+> **Tip**: Follow existing patterns in the codebase to maintain consistency.
 
 ### Performance Optimizations
 
@@ -414,4 +356,17 @@ flutter test test/[test_file_name]_test.dart
 **Itumeleng Seema**
 
 - GitHub: [@itumelengseema](https://github.com/itumelengseema)
+
+---
+
+## Maintaining This Documentation 📝
+
+To keep this README accurate and useful:
+
+- **Dependencies**: Check [`pubspec.yaml`](pubspec.yaml) for current versions
+- **Project Structure**: Explore the `lib/` directory for the latest file organization
+- **Features**: Update this document when adding/removing major features
+- **Screenshots**: Update screenshots when UI changes significantly
+
+This ensures new contributors always have accurate, up-to-date information.
 
